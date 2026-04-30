@@ -1,0 +1,149 @@
+{
+  "lastSequence": 12,
+  "items": [
+    {
+      "id": 1,
+      "title": "Deployment System - Deploy OpenClaw via single command",
+      "description": "As a user, I can deploy OpenClaw via single command. Given a valid DigitalOcean account. When I run the deployment command. Then infrastructure is provisioned and accessible within 15 minutes.",
+      "category": "feature",
+      "severity": "high",
+      "fingerprint": "spec|spec-001|story|us-001",
+      "source": "/pro:spec.import",
+      "sourceSpec": "spec-001",
+      "createdAt": "2026-04-28T00:00:00Z",
+      "status": "completed"
+    },
+    {
+      "id": 2,
+      "title": "Deployment System - Access running dashboard",
+      "description": "As a user, I can access a running dashboard. Given deployment is complete. When I open the provided URL. Then I see system status and navigation options.",
+      "category": "feature",
+      "severity": "high",
+      "fingerprint": "spec|spec-001|story|us-002",
+      "source": "/pro:spec.import",
+      "sourceSpec": "spec-001",
+      "createdAt": "2026-04-28T00:00:00Z",
+      "status": "completed"
+    },
+    {
+      "id": 3,
+      "title": "Sandbox Runtime - Run agents in isolated environments",
+      "description": "As a user, I can run agents in isolated environments. Given an agent task. When the agent executes. Then it runs inside a container with restricted permissions.",
+      "category": "feature",
+      "severity": "high",
+      "fingerprint": "spec|spec-001|story|us-003",
+      "source": "/pro:spec.import",
+      "sourceSpec": "spec-001",
+      "createdAt": "2026-04-28T00:00:00Z",
+      "status": "completed"
+    },
+    {
+      "id": 4,
+      "title": "Sandbox Runtime - Restrict filesystem access",
+      "description": "As a user, I can restrict filesystem access. Given sandbox rules. When an agent accesses files. Then only allowed directories are accessible.",
+      "category": "feature",
+      "severity": "high",
+      "fingerprint": "spec|spec-001|story|us-004",
+      "source": "/pro:spec.import",
+      "sourceSpec": "spec-001",
+      "createdAt": "2026-04-28T00:00:00Z",
+      "status": "completed"
+    },
+    {
+      "id": 5,
+      "title": "Sandbox Runtime - Control network access",
+      "description": "As a user, I can control network access. Given network policy is defined. When agent attempts external call. Then request is allowed or blocked per policy.",
+      "category": "feature",
+      "severity": "high",
+      "fingerprint": "spec|spec-001|story|us-005",
+      "source": "/pro:spec.import",
+      "sourceSpec": "spec-001",
+      "createdAt": "2026-04-28T00:00:00Z",
+      "status": "completed"
+    },
+    {
+      "id": 6,
+      "title": "Agent Execution Engine - Submit task to agent",
+      "description": "As a user, I can submit a task to an agent. Given the dashboard. When I input a task. Then the agent begins execution.",
+      "category": "feature",
+      "severity": "high",
+      "fingerprint": "spec|spec-001|story|us-006",
+      "source": "/pro:spec.import",
+      "sourceSpec": "spec-001",
+      "createdAt": "2026-04-28T00:00:00Z",
+      "status": "completed"
+    },
+    {
+      "id": 7,
+      "title": "Agent Execution Engine - Stop agent mid-execution",
+      "description": "As a user, I can stop an agent mid-execution. Given an active agent. When I click stop. Then execution halts within 5 seconds.",
+      "category": "feature",
+      "severity": "medium",
+      "fingerprint": "spec|spec-001|story|us-007",
+      "source": "/pro:spec.import",
+      "sourceSpec": "spec-001",
+      "createdAt": "2026-04-28T00:00:00Z",
+      "status": "completed"
+    },
+    {
+      "id": 8,
+      "title": "Observability and Logs - View agent actions",
+      "description": "As a user, I can view agent actions. Given an agent run. When I open logs. Then I see step-by-step actions.",
+      "category": "feature",
+      "severity": "high",
+      "fingerprint": "spec|spec-001|story|us-008",
+      "source": "/pro:spec.import",
+      "sourceSpec": "spec-001",
+      "createdAt": "2026-04-28T00:00:00Z",
+      "status": "completed"
+    },
+    {
+      "id": 9,
+      "title": "Observability and Logs - See blocked actions",
+      "description": "As a user, I can see blocked actions. Given sandbox enforcement. When an action is denied. Then it is logged with reason.",
+      "category": "feature",
+      "severity": "high",
+      "fingerprint": "spec|spec-001|story|us-009",
+      "source": "/pro:spec.import",
+      "sourceSpec": "spec-001",
+      "createdAt": "2026-04-28T00:00:00Z",
+      "status": "completed"
+    },
+    {
+      "id": 10,
+      "title": "Sandbox Configuration UI - Edit sandbox rules in UI",
+      "description": "As a user, I can edit sandbox rules in UI. Given settings panel. When I modify rules. Then new runs follow updated rules.",
+      "category": "feature",
+      "severity": "medium",
+      "fingerprint": "spec|spec-001|story|us-010",
+      "source": "/pro:spec.import",
+      "sourceSpec": "spec-001",
+      "createdAt": "2026-04-28T00:00:00Z",
+      "status": "completed"
+    },
+    {
+      "id": 11,
+      "title": "Preset Sandbox Profiles - Choose predefined sandbox levels",
+      "description": "As a user, I can choose predefined sandbox levels. Given profile options. When I select one. Then rules are applied automatically.",
+      "category": "feature",
+      "severity": "low",
+      "fingerprint": "spec|spec-001|story|us-011",
+      "source": "/pro:spec.import",
+      "sourceSpec": "spec-001",
+      "createdAt": "2026-04-28T00:00:00Z",
+      "status": "completed"
+    },
+    {
+      "id": 12,
+      "title": "Ansible-based OpenClaw DigitalOcean deployment",
+      "description": "Deploy OpenClaw on DigitalOcean with Tailscale, Ansible, Docker sandboxing, monitoring (node-exporter), Grafana, backup via snapshots, and Makefile entrypoints.",
+      "category": "feature",
+      "severity": "high",
+      "fingerprint": "feature|12|ansible-openclaw-digitalocean",
+      "source": "/pro:feature",
+      "sourceBranch": "feat/ansible-openclaw-digitalocean-deployment",
+      "createdAt": "2026-04-28T00:00:00Z",
+      "status": "in-progress"
+    }
+  ]
+}

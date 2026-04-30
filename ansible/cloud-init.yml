@@ -1,0 +1,31 @@
+#cloud-config
+package_update: true
+packages:
+  - curl
+  - gnupg
+  - apt-transport-https
+
+write_files:
+  - path: /etc/tailscale/authkey
+    permissions: '0600'
+    owner: root:root
+    content: |
+      ${TAILSCALE_AUTHKEY}
+
+runcmd:
+  # Tailscale - read key from secure file
+  - curl -fsSL https://pkgs.tailscale.com/stable/ubuntu/jammy.noarmor.gpg | sudo tee /usr/share/keyrings/tailscale-archive-keyring.gpg > /dev/null
+  - echo 'deb [signed-by=/usr/share/keyrings/tailscale-archive-keyring.gpg] https://pkgs.tailscale.com/stable/ubuntu jammy main' | sudo tee /etc/apt/sources.list.d/tailscale.list
+  - sudo apt-get update && sudo apt-get install -y tailscale
+  - sudo tailscale up --authkey-file /etc/tailscale/authkey
+  - sudo rm -f /etc/tailscale/authkey
+
+  # Docker
+  - sudo apt-get install -y docker.io
+  - sudo usermod -aG docker ubuntu
+
+  # Ansible
+  - sudo apt-get update && sudo apt-get install -y ansible
+
+  # Run Ansible playbook
+  - cd /home/ubuntu && ansible-pull -U https://github.com/wilmoore/openclaw.git -C main -i ansible/inventory.ini ansible/site.yml

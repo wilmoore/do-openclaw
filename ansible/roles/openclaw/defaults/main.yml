@@ -1,0 +1,5 @@
+openclaw_image: "wilmoore/openclaw:v1.0.0"
+allowlist: "github.com,api.openai.com,api.anthropic.com"
+container_memory: "1g"
+container_cpus: "1"
+workspace_size: "512m"

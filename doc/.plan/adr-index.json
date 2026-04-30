@@ -1,0 +1,26 @@
+{
+  "lastSequence": 3,
+  "entries": [
+    {
+      "id": "001",
+      "title": "Use Tailscale for Private Network Access",
+      "filename": "001-use-tailscale-for-private-network-access.md",
+      "createdAt": "2026-04-28T00:00:00Z",
+      "branch": "feat/ansible-openclaw-digitalocean-deployment"
+    },
+    {
+      "id": "002",
+      "title": "Use Ansible for Droplet Configuration",
+      "filename": "002-use-ansible-for-droplet-configuration.md",
+      "createdAt": "2026-04-28T00:00:00Z",
+      "branch": "feat/ansible-openclaw-digitalocean-deployment"
+    },
+    {
+      "id": "003",
+      "title": "Use Docker User Namespace Remapping for Sandboxing",
+      "filename": "003-use-docker-user-namespace-remapping-for-sandboxing.md",
+      "createdAt": "2026-04-28T00:00:00Z",
+      "branch": "feat/ansible-openclaw-digitalocean-deployment"
+    }
+  ]
+}

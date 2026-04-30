@@ -1,0 +1,42 @@
+- name: Create Grafana directories
+  file:
+    path: "{{ item }}"
+    state: directory
+    mode: "0755"
+  loop:
+    - /var/lib/grafana/dashboards
+    - /etc/grafana
+
+- name: Pull Grafana image
+  docker_image:
+    name: grafana/grafana
+    source: pull
+    tag: latest
+    force_source: yes
+
+- name: Create Grafana config
+  copy:
+    dest: /etc/grafana/grafana.ini
+    content: |
+      [paths]
+      data = /var/lib/grafana
+      provisioning = /etc/grafana/provisioning
+    mode: "0644"
+
+- name: Start Grafana
+  docker_container:
+    name: grafana
+    image: grafana/grafana:latest
+    ports:
+      - "3000:3000"
+    networks_cli_compatible: yes
+    networks:
+      - name: openclaw_net
+    volumes:
+      - /var/lib/grafana:/var/lib/grafana
+      - /etc/grafana:/etc/grafana
+    env:
+      GF_SECURITY_ADMIN_USER: admin
+      GF_SECURITY_ADMIN_PASSWORD: admin
+    restart_policy: unless-stopped
+    state: started

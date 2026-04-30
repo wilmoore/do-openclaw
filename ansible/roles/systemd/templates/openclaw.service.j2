@@ -1,0 +1,24 @@
+[Unit]
+Description=OpenClaw Agent Server
+After=network.target docker.service
+Requires=docker.service
+
+[Service]
+Restart=always
+User=root
+ExecStartPre=/usr/bin/docker pull {{ openclaw_image }}
+ExecStart=/usr/bin/docker run --rm \
+  --name openclaw \
+  --network=openclaw_net \
+  --read-only \
+  --tmpfs /workspace:size={{ workspace_size }},rw \
+  --memory={{ container_memory }} \
+  --cpus={{ container_cpus }} \
+  -e ALLOWLIST="{{ allowlist }}" \
+  {{ openclaw_image }}
+StandardOutput=syslog
+StandardError=syslog
+SyslogIdentifier=openclaw
+
+[Install]
+WantedBy=multi-user.target

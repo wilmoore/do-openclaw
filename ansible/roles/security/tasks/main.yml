@@ -1,0 +1,58 @@
+- name: Install UFW
+  apt:
+    name: ufw
+    state: present
+
+- name: Set UFW default incoming policy
+  ufw:
+    direction: incoming
+    default: deny
+
+- name: Set UFW default outgoing policy
+  ufw:
+    direction: outgoing
+    default: allow
+
+- name: Allow Tailscale CIDR
+  ufw:
+    rule: allow
+    from: 100.64.0.0/10
+
+- name: Allow SSH from Tailscale
+  ufw:
+    rule: allow
+    port: '22'
+    from: 100.64.0.0/10
+
+- name: Enable UFW
+  ufw:
+    state: enabled
+
+- name: Configure sysctl params
+  sysctl:
+    name: "{{ item.name }}"
+    value: "{{ item.value }}"
+    state: present
+  loop:
+    - { name: net.ipv4.ip_forward, value: "0" }
+    - { name: fs.protected_regular, value: "1" }
+    - { name: fs.protected_fifos, value: "1" }
+    - { name: kernel.dmesg_restrict, value: "1" }
+    - { name: kernel.kptr_restrict, value: "2" }
+
+- name: Disable root password login
+  lineinfile:
+    path: /etc/ssh/sshd_config
+    regexp: '^PermitRootLogin'
+    line: 'PermitRootLogin no'
+
+- name: Disable password authentication
+  lineinfile:
+    path: /etc/ssh/sshd_config
+    regexp: '^PasswordAuthentication'
+    line: 'PasswordAuthentication no'
+
+- name: Restart SSH
+  service:
+    name: sshd
+    state: restarted
