@@ -1,0 +1,9 @@
+- hosts: localhost
+  become: true
+  roles:
+    - docker
+    - security
+    - openclaw
+    - observability
+    - systemd
+    - grafana

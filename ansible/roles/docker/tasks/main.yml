@@ -1,0 +1,37 @@
+- name: Install Docker
+  apt:
+    name:
+      - docker.io
+    state: present
+    update_cache: yes
+
+- name: Add user to docker group
+  user:
+    name: ubuntu
+    groups: docker
+    append: yes
+
+- name: Configure Docker daemon
+  copy:
+    dest: /etc/docker/daemon.json
+    content: |
+      {
+        "userns-remap": "default",
+        "log-driver": "json-file",
+        "log-opts": {
+          "max-size": "10m",
+          "max-file": "3"
+        }
+      }
+  notify: Restart Docker
+
+- name: Start Docker
+  service:
+    name: docker
+    state: started
+    enabled: yes
+
+- name: Create Docker bridge network
+  docker_network:
+    name: openclaw_net
+    driver: bridge

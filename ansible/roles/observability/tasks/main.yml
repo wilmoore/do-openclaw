@@ -1,0 +1,61 @@
+- name: Pull node-exporter image
+  docker_image:
+    name: prom/node-exporter
+    source: pull
+    tag: latest
+    force_source: yes
+
+- name: Start node-exporter
+  docker_container:
+    name: node-exporter
+    image: prom/node-exporter:latest
+    network_mode: host
+    restart_policy: unless-stopped
+    state: started
+    volumes:
+      - /workspace:/workspace:ro
+      - /var/run/docker.sock:/var/run/docker.sock:ro
+      - /proc:/proc:ro
+      - /sys:/sys:ro
+      - /:/rootfs:ro
+    command:
+      - --collector.textfile.directory=/workspace
+      - --collector.docker
+
+- name: Create log directory
+  file:
+    path: /var/log/openclaw
+    state: directory
+    mode: '0755'
+
+- name: Configure rsyslog for OpenClaw
+  copy:
+    dest: /etc/rsyslog.d/openclaw.conf
+    content: |
+      if $programname == 'openclaw' then /var/log/openclaw/agent.log
+      & stop
+    mode: '0644'
+  notify: Restart rsyslog
+
+- name: Create logrotate config
+  copy:
+    dest: /etc/logrotate.d/openclaw
+    content: |
+      /var/log/openclaw/agent.log {
+        daily
+        rotate 7
+        compress
+        delaycompress
+        missingok
+        notifempty
+        postrotate
+          systemctl kill -s HUP rsyslog.service >/dev/null 2>&1 || true
+        endscript
+      }
+    mode: '0644'
+
+- name: Start rsyslog
+  service:
+    name: rsyslog
+    state: started
+    enabled: yes
